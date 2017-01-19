@@ -7,20 +7,32 @@ $font-file-types: 'woff' !default;
 
 $fonts-path: '/assets/fonts' !default;
 
-@mixin font-face($font-family, $src, $font-weight, $font-style: normal){
+//https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+   @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+   @return $string;
+}
+
+@mixin font-face($font-family, $src, $font-weight, $font-style: normal, $unicode-range: 'default'){
 	@font-face {
 		font-family: $font-family;
 		src: $src;
 		font-weight: $font-weight;
 		font-style: $font-style;
-		// not sure what this does but Google does it so I'll put it here because they do
-		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+		@if ($unicode-range != 'default'){
+			// not sure what this does but Google does it so I'll put it here because they do
+			unicode-range: $unicode-range;
+		}
 	}
 }
 
 @function fontSrc($fonts-path, $font-family, $font-file){
 	//Why the smiley face? https://www.paulirish.com/2010/font-face-gotchas/#smiley
 	$src: (local('☺'));
+	$family-folder: str-replace($font-family, ' ', '-');
 	@each $type in $font-file-types {
 		$src: append($src, url('#{$fonts-path}/#{$font-family}/#{nth($font-file, 1)}.#{$type}') format('#{$type}'), 'comma');
 	}
@@ -30,14 +42,14 @@ $fonts-path: '/assets/fonts' !default;
 //Do not edit this unless you have to
 @each $font-family, $font-set in $fonts {
 	@each $font-weight, $font-file in $font-set {
-		@if length($font-file) > 1 {
+		@if type-of($font-file) == 'string' {
+			$src: fontSrc($fonts-path, $font-family, $font-file);
+			@include font-face($font-family, $src, $font-weight);
+		} @else {
 			@each $font-style, $file in $font-file {
 				$src: fontSrc($fonts-path, $font-family, $file);
 				@include font-face($font-family, $src, $font-weight, $font-style);
 			}
-		} @else {
-			$src: fontSrc($fonts-path, $font-family, $font-file);
-			@include font-face($font-family, $src, $font-weight);
 		}
 	}
 }
