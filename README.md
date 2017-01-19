@@ -20,7 +20,7 @@ Then add this line to your main SCSS file (the exact path will vary based on you
 
 ## Usage
 
-Just importing the file won't do anything on it's own, you will need to asign some custom settings. To assign settings, declare them before the `@import` statement.
+Just importing the file won't do anything on it's own, you will need to assign some custom settings. To assign settings, declare them before the `@import` statement.
 
 ### The `$fonts` setting
 
@@ -110,10 +110,10 @@ If you have multiple fonts you can do this:
 ````````````scss
 $fonts: (
     'Font One' : (
-        400 : 'font-one',
+        400 : 'font-one'
     ),
     'Font Two' : (
-        400 : 'font-one',
+        400 : 'font-one'
     )
 );
 
@@ -141,12 +141,12 @@ That code will generate this css:
 
 ### The `$fonts-path` setting
 
-Everyones folder structure is different so you will probably want to use a differnt path in the url than the default one. That is what the `$fonts-path` setting is for.
+Everyones folder structure is different so you will probably want to use a different path in the url than the default one. That is what the `$fonts-path` setting is for.
 
 ````````````scss
 $fonts: (
     'Open Sans' : (
-        300 : 'open-sans-light',
+        300 : 'open-sans-light'
     )
 );
 
@@ -168,12 +168,12 @@ That will generate this css:
 
 ### The `$font-file-types` setting
 
-By editing the `$font-file-types` you can load up differnt file types than the default `woff` file type. Just note that **this setting affects all font families**. The `woff` file type has very strong browser support even being supported in some old IE's so you shouldn't nedd to load anything else. If you wish to load alternate font file types though, you can do something like this:
+By editing the `$font-file-types` you can load up different file types than the default `woff` file type. Just note that **this setting affects all font families**. The `woff` file type has very strong browser support even being supported in some old IE's so you shouldn't need to load anything else. If you wish to load alternate font file types though, you can do something like this:
 
 ````````````scss
 $fonts: (
     'Open Sans' : (
-        300 : 'open-sans-light',
+        300 : 'open-sans-light'
     )
 );
 
