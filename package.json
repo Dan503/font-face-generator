@@ -1,0 +1,25 @@
+{
+  "name": "font-face-scss",
+  "version": "1.0.0",
+  "description": "A powerful @font-face generator for scss",
+  "main": "generator.scss",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dan503/font-face-scss.git"
+  },
+  "keywords": [
+    "font-face",
+    "@font-face",
+    "scss",
+    "sass",
+    "fonts",
+    "generator",
+    "css"
+  ],
+  "author": "Daniel Tonon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dan503/font-face-scss/issues"
+  },
+  "homepage": "https://github.com/Dan503/font-face-scss#readme"
+}
