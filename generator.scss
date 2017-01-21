@@ -5,7 +5,7 @@ $fonts: () !default;
 //https://help.webflow.com/article/list-of-font-file-types-for-maximum-browser-support
 $font-file-types: 'woff' !default;
 
-$fonts-path: '/assets/fonts' !default;
+$fonts-path: '../fonts' !default;
 
 //https://css-tricks.com/snippets/sass/str-replace-function/
 @function str-replace($string, $search, $replace: '') {
