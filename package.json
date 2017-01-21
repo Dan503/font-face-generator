@@ -1,6 +1,6 @@
 {
   "name": "font-face-generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An @font-face code generator for SCSS",
   "main": "generator.scss",
   "repository": {
