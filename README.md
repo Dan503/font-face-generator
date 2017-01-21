@@ -63,35 +63,35 @@ That code will generate this css:
 ``````css
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("/assets/fonts/Open-Sans/open-sans-light.woff") format("woff");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("/assets/fonts/Open-Sans/open-sans-normal.woff") format("woff");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-normal.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("/assets/fonts/Open-Sans/open-sans-normal-italic.woff") format("woff");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-normal-italic.woff") format("woff");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("/assets/fonts/Open-Sans/open-sans-semibold.woff") format("woff");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-semibold.woff") format("woff");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("/assets/fonts/Open-Sans/open-sans-bold.woff") format("woff");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
 }
@@ -113,7 +113,7 @@ $fonts: (
         400 : 'font-one'
     ),
     'Font Two' : (
-        400 : 'font-one'
+        400 : 'font-two'
     )
 );
 
@@ -125,14 +125,14 @@ That code will generate this css:
 ```````````css
 @font-face {
   font-family: "Font One";
-  src: local("☺"), url("/assets/fonts/Font-One/font-one.woff") format("woff");
+  src: local("☺"), url("../fonts/Font-One/font-one.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Font Two";
-  src: local("☺"), url("/assets/fonts/Font-Two/font-one.woff") format("woff");
+  src: local("☺"), url("../fonts/Font-Two/font-two.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -141,7 +141,17 @@ That code will generate this css:
 
 ### The `$fonts-path` setting
 
-Everyones folder structure is different so you will probably want to use a different path in the url than the default one. That is what the `$fonts-path` setting is for.
+The default setting for this is `../fonts`. This is to make it compatible with as many folder structures as possible. As long as you have a folder structure that is something like the following then you won't need to change the `$fonts-path` setting.
+
+`````
+<folder holding front end site assets>
+  L fonts
+    L <font files>
+  L <css folder>
+    L <css files>
+`````
+
+If the default `$fonts-path` setting doesn't work with your folder structure, then you can alter the `$fonts-path` setting to use a different path in the src url.
 
 ````````````scss
 $fonts: (
@@ -187,7 +197,7 @@ That will generate this css:
 ``````````css
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("/assets/fonts/Open-Sans/open-sans-light.woff") format("woff"), url("/assets/fonts/Open-Sans/open-sans-light.woff2") format("woff2");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
 }
