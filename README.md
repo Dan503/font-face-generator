@@ -145,10 +145,10 @@ The default setting for this is `../fonts`. This is to make it compatible with a
 
 `````
 <folder holding front end site assets>
-  L fonts
-    L <font files>
-  L <css folder>
-    L <css files>
+  - fonts
+  - - <font files>
+  - <css folder>
+  - - <css files>
 `````
 
 If the default `$fonts-path` setting doesn't work with your folder structure, then you can alter the `$fonts-path` setting to use a different path in the src url.
