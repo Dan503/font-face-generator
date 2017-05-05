@@ -12,29 +12,59 @@ With that in mind, I created a generator powered by SCSS that handles all the re
 npm install font-face-generator --save
 ```````
 
-Then add this line to your main SCSS file (the exact path will vary based on your folder structure).
+Then add one of these two lines to your main SCSS file (the exact path will vary based on your folder structure).
+
+**If using as a mixin:**
+
+```````scss
+@import '../node_modules/font-face-generator/mixin';
+```````
+
+**If using as a single generator**
+
+This is version 1.0.x syntax, I recommend using the mixin syntax from now on.
 
 ```````scss
 @import '../node_modules/font-face-generator/generator';
 ```````
 
+(Version 1.1.x is backwards compatible with version 1.0.x)
+
 ## Usage
 
-Just importing the file won't do anything on it's own, you will need to assign some custom settings. To assign settings, declare them before the `@import` statement.
+Just importing the file won't do anything on it's own, you will need to assign some custom settings.
 
 ### The `$fonts` setting
 
 Let's start off with the `$fonts` variable, this is where the majority of the magic happens. The `$fonts` variable follows this basic format:
 
+**Mixin format**
+
+````````````scss
+@import '../node_modules/font-face-generator/mixin';
+
+@include font-face((
+  'Font family name' : (
+    [weight 1] : 'font-file-name-1',
+    [weight 2] : (
+      [font-style 1] : 'font-file-name-2',
+      [font-style 2] : 'font-file-name-3'
+    )
+  )
+));
+````````````
+
+**Generator format**
+
 ````````````scss
 $fonts: (
-    'Font family name' : (
-        [weight 1] : 'font-file-name-1',
-        [weight 2] : (
-            [font-style 1] : 'font-file-name-2',
-            [font-style 2] : 'font-file-name-3'
-        )
+  'Font family name' : (
+    [weight 1] : 'font-file-name-1',
+    [weight 2] : (
+      [font-style 1] : 'font-file-name-2',
+      [font-style 2] : 'font-file-name-3'
     )
+  )
 );
 
 @import '../node_modules/font-face-generator/generator';
@@ -42,17 +72,37 @@ $fonts: (
 
 That might look a little confusing. Here is a proper example using Open Sans:
 
+**Mixin format**
+
+````````````scss
+@import '../node_modules/font-face-generator/mixin';
+
+@include font-face((
+  'Open Sans' : (
+    300 : 'open-sans-light',
+    400 : (
+      normal : 'open-sans-normal',
+      italic : 'open-sans-normal-italic'
+    ),
+    600 : 'open-sans-semibold',
+    700 : 'open-sans-bold'
+  )
+));
+````````````
+
+**Generator format**
+
 ````````````scss
 $fonts: (
-    'Open Sans' : (
-        300 : 'open-sans-light',
-        400 : (
-            normal : 'open-sans-normal',
-            italic : 'open-sans-normal-italic'
-        ),
-        600 : 'open-sans-semibold',
-        700 : 'open-sans-bold'
-    )
+  'Open Sans' : (
+    300 : 'open-sans-light',
+    400 : (
+      normal : 'open-sans-normal',
+      italic : 'open-sans-normal-italic'
+    ),
+    600 : 'open-sans-semibold',
+    700 : 'open-sans-bold'
+  )
 );
 
 @import '../node_modules/font-face-generator/generator';
@@ -67,28 +117,24 @@ That code will generate this css:
   font-weight: 300;
   font-style: normal;
 }
-
 @font-face {
   font-family: "Open Sans";
   src: local("☺"), url("../fonts/Open-Sans/open-sans-normal.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
-
 @font-face {
   font-family: "Open Sans";
   src: local("☺"), url("../fonts/Open-Sans/open-sans-normal-italic.woff") format("woff");
   font-weight: 400;
   font-style: italic;
 }
-
 @font-face {
   font-family: "Open Sans";
   src: local("☺"), url("../fonts/Open-Sans/open-sans-semibold.woff") format("woff");
   font-weight: 600;
   font-style: normal;
 }
-
 @font-face {
   font-family: "Open Sans";
   src: local("☺"), url("../fonts/Open-Sans/open-sans-bold.woff") format("woff");
@@ -99,7 +145,7 @@ That code will generate this css:
 
 [Read this](https://www.paulirish.com/2010/font-face-gotchas/#smiley) if you are confused by the smiley face.
 
-The idea with the `$fonts` variable is that first you state what the font family name is. One thing to note about the font family name though is that any spaces in the name will get converted to dashes in the url (more about the url path in the next section).
+With the `$fonts` variable, first you state what the font family name is. One thing to note about the font family name though is that **any spaces in the font name will get converted to dashes in the url** (more about the url path in the next section).
 
 Under the font family name is a sass map. The keys of the map are for the font-weights. The value associated with each font weight is either the file name for that font weight as a string or another Sass map.
 
@@ -107,14 +153,31 @@ If the value is a string, the `font-style` for that font weight will default to 
 
 If you have multiple fonts you can do this:
 
+**Mixin format**
+
+````````````scss
+@import '../node_modules/font-face-generator/mixin';
+
+@include font-face((
+  'Font One' : (
+    400 : 'font-one'
+  ),
+  'Font Two' : (
+    400 : 'font-two'
+  )
+));
+````````````
+
+**Generator format**
+
 ````````````scss
 $fonts: (
-    'Font One' : (
-        400 : 'font-one'
-    ),
-    'Font Two' : (
-        400 : 'font-two'
-    )
+  'Font One' : (
+    400 : 'font-one'
+  ),
+  'Font Two' : (
+    400 : 'font-two'
+  )
 );
 
 @import '../node_modules/font-face-generator/generator';
@@ -129,7 +192,6 @@ That code will generate this css:
   font-weight: 400;
   font-style: normal;
 }
-
 @font-face {
   font-family: "Font Two";
   src: local("☺"), url("../fonts/Font-Two/font-two.woff") format("woff");
@@ -138,26 +200,129 @@ That code will generate this css:
 }
 ```````````
 
+### The `$font-file-types` / `$types` setting
 
-### The `$fonts-path` setting
+By editing the `$font-file-types` variable, you can load up different file types than the default `woff` file type. The `woff` file type has very strong browser support even being supported in IE 9. It is a much heavier font file type than the more modern `woff2` file format though so you will probably want to have both `woff` and `woff2` versions of your font. Here is how to load alternate font file types:
 
-The default setting for this is `../fonts`. This is to make it compatible with as many folder structures as possible. As long as you have a folder structure that is something like the following then you won't need to change the `$fonts-path` setting.
+**Mixin format**
+
+````````````scss
+@import '../node_modules/font-face-generator/mixin';
+
+@include font-face(
+  $fonts: (
+    'Open Sans' : (
+      300 : 'open-sans-light'
+    )
+  ),
+  $types: 'woff' 'woff2'
+);
+````````````
+
+**Generator format**
+
+````````````scss
+$fonts: (
+  'Open Sans' : (
+    300 : 'open-sans-light'
+  )
+);
+
+$font-file-types: 'woff' 'woff2';
+
+@import '../node_modules/font-face-generator/generator';
+````````````
+
+That will generate this css:
+
+``````````css
+@font-face {
+  font-family: "Open Sans";
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+``````````
+
+However, what if you don't have the woff2 files for one of your fonts? This is where the mixin version has an advantage. Instead of making the browser go looking for files that don't exist, you can do this:
+
+````````````scss
+@import '../node_modules/font-face-generator/mixin';
+
+$font-file-types: 'woff' 'woff2';
+
+@include font-face(
+  $fonts: (
+    'Open Sans' : (
+      300 : 'open-sans-light'
+    )
+  )
+);
+
+@include font-face(
+  $fonts: (
+    'Another Font' : (
+      400 : 'other-normal'
+    )
+  ),
+  $types: 'woff'
+);
+````````````
+
+To generate this css:
+
+`````css
+@font-face {
+  font-family: "Open Sans";
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Another Font";
+  src: local("☺"), url("../fonts/Another-Font/other-normal.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+`````
+
+### The `$fonts-path` / `$path` setting
+
+The default setting for this is `../fonts`. This is to make it compatible with as many folder structures as possible. As long as you have a folder structure that is something like the following then you won't need to change the `$fonts-path` / `$path` setting.
 
 `````
 <folder holding front end site assets>
   - fonts
-  - - <font files>
+  - - <font name folder>
+  - - - <font files>
   - <css folder>
   - - <css files>
 `````
 
-If the default `$fonts-path` setting doesn't work with your folder structure, then you can alter the `$fonts-path` setting to use a different path in the src url.
+If the default `$fonts-path` setting doesn't work with your folder structure, then you can alter the `$fonts-path` setting to use a different path.
+
+**Mixin format**
+
+````````````scss
+@import '../node_modules/font-face-generator/mixin';
+
+@include font-face(
+  $fonts: (
+    'Open Sans' : (
+      300 : 'open-sans-light'
+    )
+  ),
+  $path: '/path/to/fonts',
+);
+````````````
+
+**Generator format**
 
 ````````````scss
 $fonts: (
-    'Open Sans' : (
-        300 : 'open-sans-light'
-    )
+  'Open Sans' : (
+    300 : 'open-sans-light'
+  )
 );
 
 $fonts-path: '/path/to/fonts';
@@ -176,29 +341,108 @@ That will generate this css:
 }
 ``````````
 
-### The `$font-file-types` setting
-
-By editing the `$font-file-types` you can load up different file types than the default `woff` file type. Just note that **this setting affects all font families**. The `woff` file type has very strong browser support even being supported in some old IE's so you shouldn't need to load anything else. If you wish to load alternate font file types though, you can do something like this:
+Like the `$font-file-types` setting, this can be defined globally to avoid having to state the `$path` setting multiple times when using the mixin multiple times.
 
 ````````````scss
-$fonts: (
+@import '../node_modules/font-face-generator/mixin';
+
+$fonts-path: '/path/to/fonts';
+
+@include font-face(
+  $fonts: (
     'Open Sans' : (
-        300 : 'open-sans-light'
+      300 : 'open-sans-light'
     )
+  ),
+  $types: 'woff' 'woff2'
 );
 
-$font-file-types: 'woff' 'woff2';
-
-@import '../node_modules/font-face-generator/generator';
+@include font-face(
+  $fonts: (
+    'Another Font' : (
+      400 : 'other-normal'
+    )
+  )
+);
 ````````````
 
-That will generate this css:
+Produces this css:
 
 ``````````css
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2");
+  src: local("☺"), url("/path/to/fonts/Open-Sans/open-sans-light.woff") format("woff"), url("/path/to/fonts/Open-Sans/open-sans-light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
 }
+@font-face {
+  font-family: "Another Font";
+  src: local("☺"), url("/path/to/fonts/Another-Font/other-normal.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
 ``````````
+
+### Custom @font-face properties
+
+Custom properties is a unique advantage that the mixin format has over the old generator format. If there is a particular css @font-face property that this mixin doesn't add automatically, you can easily add it yourself by adding it to the `@content` section of the mixin.
+
+So for example, let's say that you are working on a multilingual site and you want to take advantage of the `unicode-range` feature in @font-face. The font-face-generator mixin doesn't support `unicode-range` out of the box so are you just supposed to go back to doing @font-face the old fashioned way? Hell no! You can do this instead:
+
+````````````scss
+@import '../node_modules/font-face-generator/mixin';
+
+@include font-face((
+  'Open Sans' : (
+    300 : 'open-sans-light',
+    400 : (
+      normal : 'open-sans-normal',
+      italic : 'open-sans-normal-italic'
+    ),
+    600 : 'open-sans-semibold',
+    700 : 'open-sans-bold'
+  )
+)){
+  unicode-range: U+0025-00FF;
+};
+````````````
+
+That will produce this css:
+
+``````css
+@font-face {
+  font-family: "Open Sans";
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  unicode-range: U+0025-00FF;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-normal.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  unicode-range: U+0025-00FF;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-normal-italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  unicode-range: U+0025-00FF;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  unicode-range: U+0025-00FF;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  unicode-range: U+0025-00FF;
+}
+``````
