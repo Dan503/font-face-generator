@@ -1,0 +1,55 @@
+
+$fonts: () !default;
+
+//Woff is a strongly supported font type by all modern browsers but also supported by old versions of IE
+//https://help.webflow.com/article/list-of-font-file-types-for-maximum-browser-support
+$font-file-types: 'woff' !default;
+
+$fonts-path: '../fonts' !default;
+
+//https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: '') {
+	$index: str-index($string, $search);
+	 @if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+	@return $string;
+}
+
+@mixin generate-font-face($font-family, $src, $font-weight, $font-style: normal, $unicode-range: 'default'){
+	@font-face {
+		font-family: $font-family;
+		src: $src;
+		font-weight: $font-weight;
+		font-style: $font-style;
+		@if ($unicode-range != 'default'){
+			unicode-range: $unicode-range;
+		}
+	}
+}
+
+@function fontSrc($fonts-path, $font-family, $font-file){
+	//Why the smiley face? https://www.paulirish.com/2010/font-face-gotchas/#smiley
+	$src: (local('☺'));
+	$family-folder: str-replace($font-family, ' ', '-');
+	@each $type in $font-file-types {
+		$src: append($src, url('#{$fonts-path}/#{$font-family}/#{nth($font-file, 1)}.#{$type}') format('#{$type}'), 'comma');
+	}
+	@return $src;
+}
+
+@mixin font-face($fonts: $fonts, $file-types: $font-file-types, $path: $fonts-path, $unicode-range: 'default'){
+	@each $font-family, $font-set in $fonts {
+		@each $font-weight, $font-file in $font-set {
+			@if type-of($font-file) == 'string' {
+				$src: fontSrc($fonts-path, $font-family, $font-file);
+				@include generate-font-face($font-family, $src, $font-weight, $unicode-range: $unicode-range);
+			} @else {
+				@each $font-style, $file in $font-file {
+					$src: fontSrc($fonts-path, $font-family, $file);
+					@include generate-font-face($font-family, $src, $font-weight, $font-style, $unicode-range: $unicode-range);
+				}
+			}
+		}
+	}
+}
