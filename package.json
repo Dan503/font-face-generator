@@ -1,6 +1,6 @@
 {
   "name": "font-face-generator",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "An @font-face code generator for SCSS",
   "main": "generator.scss",
   "repository": {
@@ -14,6 +14,7 @@
     "sass",
     "fonts",
     "generator",
+    "mixin",
     "css"
   ],
   "author": "Daniel Tonon",
