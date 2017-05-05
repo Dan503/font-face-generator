@@ -5,7 +5,7 @@
   "main": "generator.scss",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dan503/font-face-scss.git"
+    "url": "git+https://github.com/Dan503/font-face-generator.git"
   },
   "keywords": [
     "font-face",
@@ -20,7 +20,7 @@
   "author": "Daniel Tonon",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Dan503/font-face-scss/issues"
+    "url": "https://github.com/Dan503/font-face-generator/issues"
   },
-  "homepage": "https://github.com/Dan503/font-face-scss#readme"
+  "homepage": "https://github.com/Dan503/font-face-generator#readme"
 }
