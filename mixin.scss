@@ -7,8 +7,6 @@ $font-file-types: 'woff' !default;
 
 $fonts-path: '../fonts' !default;
 
-$unicode-range: 'none' !default;
-
 //https://css-tricks.com/snippets/sass/str-replace-function/
 @function str-replace($string, $search, $replace: '') {
 	$index: str-index($string, $search);
@@ -18,15 +16,13 @@ $unicode-range: 'none' !default;
 	@return $string;
 }
 
-@mixin generate-font-face($font-family, $src, $font-weight, $font-style: normal, $unicode-range: $unicode-range){
+@mixin generate-font-face($font-family, $src, $font-weight, $font-style: normal){
 	@font-face {
 		font-family: $font-family;
 		src: $src;
 		font-weight: $font-weight;
 		font-style: $font-style;
-		@if ($unicode-range != 'none'){
-			unicode-range: $unicode-range;
-		}
+		@content;
 	}
 }
 
@@ -40,16 +36,20 @@ $unicode-range: 'none' !default;
 	@return $src;
 }
 
-@mixin font-face($fonts: $fonts, $types: $font-file-types, $path: $fonts-path, $unicode-range: $unicode-range){
+@mixin font-face($fonts: $fonts, $types: $font-file-types, $path: $fonts-path){
 	@each $font-family, $font-set in $fonts {
 		@each $font-weight, $font-file in $font-set {
 			@if type-of($font-file) == 'string' {
 				$src: fontSrc($path, $font-family, $font-file, $types);
-				@include generate-font-face($font-family, $src, $font-weight, $unicode-range: $unicode-range);
+				@include generate-font-face($font-family, $src, $font-weight){
+					@content;
+				};
 			} @else {
 				@each $font-style, $file in $font-file {
 					$src: fontSrc($path, $font-family, $file, $types);
-					@include generate-font-face($font-family, $src, $font-weight, $font-style, $unicode-range: $unicode-range);
+					@include generate-font-face($font-family, $src, $font-weight, $font-style){
+						@content;
+					};
 				}
 			}
 		}
