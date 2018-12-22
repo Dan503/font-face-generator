@@ -296,14 +296,14 @@ To generate this css:
 
 The default setting for this is `../fonts`. This is to make it compatible with as many folder structures as possible. As long as you have a folder structure that is something like the following then you won't need to change the `$fonts-path` / `$path` setting.
 
-`````
-<folder holding front end site assets>
-  - fonts
-  - - <font name folder>
-  - - - <font files>
-  - <css folder>
-  - - <css files>
-`````
+> Default expected folder structure:
+>
+> - _[folder holding front end assets]_
+>   - `fonts`
+>     - _[font name folder]_
+>       - _[font files]_
+>   - _[css folder]_
+>     - _[css file]_
 
 If the default `$fonts-path` setting doesn't work with your folder structure, then you can alter the `$fonts-path` setting to use a different path.
 
