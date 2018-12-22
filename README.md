@@ -12,15 +12,14 @@ With that in mind, I created a generator powered by SCSS that handles all the re
 npm install font-face-generator --save
 ```````
 
-Then add one of these two lines to your main SCSS file (the exact path will vary based on your folder structure).
-
-**If using as a mixin:**
+Then add this line to your main SCSS file (the exact path will vary based on your folder structure).
 
 ```````scss
 @import '../node_modules/font-face-generator/mixin';
 ```````
 
-**If using as a single generator**
+<details>
+  <summary>Deprecated 1.0 syntax</summary>
 
 This is version 1.0.x syntax, I recommend using the mixin syntax from now on.
 
@@ -29,6 +28,8 @@ This is version 1.0.x syntax, I recommend using the mixin syntax from now on.
 ```````
 
 (Version 1.1.x is backwards compatible with version 1.0.x)
+</details>
+
 
 ## Usage
 
@@ -36,9 +37,7 @@ Just importing the file won't do anything on it's own, you will need to assign s
 
 ### The `$fonts` setting
 
-Let's start off with the `$fonts` variable, this is where the majority of the magic happens. The `$fonts` variable follows this basic format:
-
-**Mixin format**
+The `$fonts` setting is where the majority of the magic happens. The `$fonts` setting follows this basic format:
 
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
@@ -54,7 +53,8 @@ Let's start off with the `$fonts` variable, this is where the majority of the ma
 ));
 ````````````
 
-**Generator format**
+<details>
+  <summary>Deprecated 1.0 syntax</summary>
 
 ````````````scss
 $fonts: (
@@ -69,11 +69,11 @@ $fonts: (
 
 @import '../node_modules/font-face-generator/generator';
 ````````````
+
+</details>
 
 That might look a little confusing. Here is a proper example using Open Sans:
 
-**Mixin format**
-
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
 
@@ -90,7 +90,8 @@ That might look a little confusing. Here is a proper example using Open Sans:
 ));
 ````````````
 
-**Generator format**
+<details>
+  <summary>Deprecated 1.0 syntax</summary>
 
 ````````````scss
 $fonts: (
@@ -107,6 +108,8 @@ $fonts: (
 
 @import '../node_modules/font-face-generator/generator';
 ````````````
+
+</details>
 
 That code will generate this css:
 
@@ -145,15 +148,13 @@ That code will generate this css:
 
 [Read this](https://www.paulirish.com/2010/font-face-gotchas/#smiley) if you are confused by the smiley face.
 
-With the `$fonts` variable, first you state what the font family name is. One thing to note about the font family name though is that **any spaces in the font name will get converted to dashes in the url** (more about the url path in the next section).
+With the `$fonts` setting, first you state what the font family name is. One thing to note about the font family name though is that **any spaces in the font name will get converted to dashes in the url** (more about the url path in the next section).
 
 Under the font family name is a sass map. The keys of the map are for the font-weights. The value associated with each font weight is either the file name for that font weight as a string or another Sass map.
 
 If the value is a string, the `font-style` for that font weight will default to `normal`. If the value is a Sass map, it will read each key of the map as the font-style and each value in the map as the file name.
 
 If you have multiple fonts you can do this:
-
-**Mixin format**
 
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
@@ -168,7 +169,8 @@ If you have multiple fonts you can do this:
 ));
 ````````````
 
-**Generator format**
+<details>
+  <summary>Deprecated 1.0 syntax</summary>
 
 ````````````scss
 $fonts: (
@@ -182,6 +184,8 @@ $fonts: (
 
 @import '../node_modules/font-face-generator/generator';
 ````````````
+
+</details>
 
 That code will generate this css:
 
@@ -202,9 +206,7 @@ That code will generate this css:
 
 ### The `$font-file-types` / `$types` setting
 
-By editing the `$font-file-types` variable, you can load up different file types than the default `woff` file type. The `woff` file type has very strong browser support even being supported in IE 9. It is a much heavier font file type than the more modern `woff2` file format though so you will probably want to have both `woff` and `woff2` versions of your font. Here is how to load alternate font file types:
-
-**Mixin format**
+By editing the `$font-file-types` setting, you can load up different file types than the default `woff` file type. The `woff` file type has very strong browser support even being supported in IE 9. It is a much heavier font file type than the more modern `woff2` file format though so you will probably want to have both `woff` and `woff2` versions of your font. Here is how to make modern browsers load `woff2` and old browsers load `woff`:
 
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
@@ -215,11 +217,12 @@ By editing the `$font-file-types` variable, you can load up different file types
       300 : 'open-sans-light'
     )
   ),
-  $types: 'woff' 'woff2'
+  $types: 'woff2' 'woff'
 );
 ````````````
 
-**Generator format**
+<details>
+  <summary>Deprecated 1.0 syntax</summary>
 
 ````````````scss
 $fonts: (
@@ -228,28 +231,30 @@ $fonts: (
   )
 );
 
-$font-file-types: 'woff' 'woff2';
+$font-file-types: 'woff2' 'woff';
 
 @import '../node_modules/font-face-generator/generator';
 ````````````
+</details>
 
 That will generate this css:
 
 ``````````css
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
 ``````````
 
-However, what if you don't have the woff2 files for one of your fonts? This is where the mixin version has an advantage. Instead of making the browser go looking for files that don't exist, you can do this:
+However, what if you don't have the woff2 files for one of your fonts? This is where the mixin has an advantage over the old 1.0 syntax. Instead of making the browser go looking for files that don't exist, you can do this:
 
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
 
-$font-file-types: 'woff' 'woff2';
+// Globally set the generator to use ('woff2' 'woff') by default
+$font-file-types: 'woff2' 'woff';
 
 @include font-face(
   $fonts: (
@@ -265,6 +270,7 @@ $font-file-types: 'woff' 'woff2';
       400 : 'other-normal'
     )
   ),
+  // overide the default file types setting
   $types: 'woff'
 );
 ````````````
@@ -274,7 +280,7 @@ To generate this css:
 `````css
 @font-face {
   font-family: "Open Sans";
-  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2");
+  src: local("☺"), url("../fonts/Open-Sans/open-sans-light.woff2") format("woff2"), url("../fonts/Open-Sans/open-sans-light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
@@ -290,18 +296,16 @@ To generate this css:
 
 The default setting for this is `../fonts`. This is to make it compatible with as many folder structures as possible. As long as you have a folder structure that is something like the following then you won't need to change the `$fonts-path` / `$path` setting.
 
-`````
-<folder holding front end site assets>
-  - fonts
-  - - <font name folder>
-  - - - <font files>
-  - <css folder>
-  - - <css files>
-`````
+> Default expected folder structure:
+>
+> - _[folder holding front end assets]_
+>   - `fonts`
+>     - _[font name folder]_
+>       - _[font files]_
+>   - _[css folder]_
+>     - _[css file]_
 
 If the default `$fonts-path` setting doesn't work with your folder structure, then you can alter the `$fonts-path` setting to use a different path.
-
-**Mixin format**
 
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
@@ -316,7 +320,9 @@ If the default `$fonts-path` setting doesn't work with your folder structure, th
 );
 ````````````
 
-**Generator format**
+
+<details>
+  <summary>Deprecated 1.0 syntax</summary>
 
 ````````````scss
 $fonts: (
@@ -329,6 +335,8 @@ $fonts-path: '/path/to/fonts';
 
 @import '../node_modules/font-face-generator/generator';
 ````````````
+
+</details>
 
 That will generate this css:
 
@@ -346,6 +354,7 @@ Like the `$font-file-types` setting, this can be defined globally to avoid havin
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
 
+// Set a global default path
 $fonts-path: '/path/to/fonts';
 
 @include font-face(
@@ -353,8 +362,7 @@ $fonts-path: '/path/to/fonts';
     'Open Sans' : (
       300 : 'open-sans-light'
     )
-  ),
-  $types: 'woff' 'woff2'
+  )
 );
 
 @include font-face(
@@ -362,7 +370,9 @@ $fonts-path: '/path/to/fonts';
     'Another Font' : (
       400 : 'other-normal'
     )
-  )
+  ),
+  //override the default path
+  $path: '/different/path/to/fonts'
 );
 ````````````
 
@@ -377,7 +387,7 @@ Produces this css:
 }
 @font-face {
   font-family: "Another Font";
-  src: local("☺"), url("/path/to/fonts/Another-Font/other-normal.woff") format("woff");
+  src: local("☺"), url("/different/path/to/fonts/Another-Font/other-normal.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -385,9 +395,9 @@ Produces this css:
 
 ### Custom @font-face properties
 
-Custom properties is a unique advantage that the mixin format has over the old generator format. If there is a particular css @font-face property that this mixin doesn't add automatically, you can easily add it yourself by adding it to the `@content` section of the mixin.
+Custom properties is a unique advantage that the mixin format has over the old 1.0 syntax. If there is a particular css `@font-face` property that this mixin doesn't add automatically, you can easily add it yourself by adding it to the `@content` section of the mixin.
 
-So for example, let's say that you are working on a multilingual site and you want to take advantage of the `unicode-range` feature in @font-face. The font-face-generator mixin doesn't support `unicode-range` out of the box so are you just supposed to go back to doing @font-face the old fashioned way? Hell no! You can do this instead:
+So for example, let's say that you are working on a multilingual site and you want to take advantage of the `unicode-range` feature in `@font-face`. The font-face-generator mixin doesn't support `unicode-range` out of the box. You can support `unicode-range` by doing this:
 
 ````````````scss
 @import '../node_modules/font-face-generator/mixin';
