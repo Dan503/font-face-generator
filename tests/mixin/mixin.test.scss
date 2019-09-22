@@ -12,3 +12,68 @@
     700 : 'open-sans-bold'
   )
 ));
+
+@include font-face((
+  'Font One' : (
+    400 : 'font-one'
+  ),
+  'Font Two' : (
+    400 : 'font-two'
+  )
+));
+
+@include font-face(
+  $fonts: (
+    'Open Sans' : (
+      300 : 'open-sans-light'
+    )
+  ),
+  $types: 'woff2' 'woff'
+);
+
+// Globally set the generator to use ('woff2' 'woff') by default
+$font-file-types: 'woff2' 'woff';
+
+// Set a global default path
+$fonts-path: '/global/path/to/fonts';
+
+@include font-face(
+  $fonts: (
+    'Open Sans' : (
+      300 : 'open-sans-light'
+    )
+  )
+);
+
+@include font-face(
+  $fonts: (
+    'Another Font' : (
+      400 : 'other-normal'
+    )
+  ),
+  // overide the default file types setting
+  $types: 'woff'
+);
+
+@include font-face(
+  $fonts: (
+    'Open Sans' : (
+      300 : 'open-sans-light'
+    )
+  ),
+  $path: '/path/to/fonts',
+);
+
+@include font-face((
+  'Open Sans' : (
+    300 : 'open-sans-light',
+    400 : (
+      normal : 'open-sans-normal',
+      italic : 'open-sans-normal-italic'
+    ),
+    600 : 'open-sans-semibold',
+    700 : 'open-sans-bold'
+  )
+)){
+  unicode-range: U+0025-00FF;
+};
