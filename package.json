@@ -3,6 +3,9 @@
   "version": "1.1.1",
   "description": "An @font-face code generator for SCSS",
   "main": "mixin.scss",
+  "scripts": {
+    "test": "jest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Dan503/font-face-generator.git"
@@ -22,5 +25,12 @@
   "bugs": {
     "url": "https://github.com/Dan503/font-face-generator/issues"
   },
-  "homepage": "https://github.com/Dan503/font-face-generator#readme"
+  "homepage": "https://github.com/Dan503/font-face-generator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/register": "^7.6.0",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2"
+  }
 }
