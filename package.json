@@ -31,7 +31,6 @@
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
     "gulp": "^4.0.2",
-    "gulp-sass": "^4.0.2",
-    "jest": "^24.9.0"
+    "gulp-sass": "^4.0.2"
   }
 }
