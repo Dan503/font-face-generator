@@ -1,0 +1,14 @@
+
+$fonts: (
+  'Open Sans' : (
+    300 : 'open-sans-light',
+    400 : (
+      normal : 'open-sans-normal',
+      italic : 'open-sans-normal-italic'
+    ),
+    600 : 'open-sans-semibold',
+    700 : 'open-sans-bold'
+  )
+);
+
+@import './generator.scss';
