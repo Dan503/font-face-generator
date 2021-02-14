@@ -20,9 +20,7 @@
   'Font Two' : (
     400 : 'font-two'
   )
-),
-$types: 'ttf'
-);
+));
 
 @include font-face(
   $fonts: (
@@ -55,6 +53,26 @@ $fonts-path: '/global/path/to/fonts';
   ),
   // overide the default file types setting
   $types: 'woff'
+);
+
+@include font-face(
+  $fonts: (
+    'TTF Font' : (
+      400 : 'ttf-normal'
+    )
+  ),
+  // overide the default file types setting
+  $types: 'ttf'
+);
+
+@include font-face(
+  $fonts: (
+    'TTF with backup Font' : (
+      400 : 'ttf-normal'
+    )
+  ),
+  // overide the default file types setting
+  $types: 'ttf' 'woff'
 );
 
 @include font-face(
