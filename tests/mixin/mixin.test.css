@@ -60,6 +60,18 @@
   font-style: normal; }
 
 @font-face {
+  font-family: "TTF Font";
+  src: local("☺"), url("/global/path/to/fonts/TTF Font/ttf-normal.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
+  font-family: "TTF with backup Font";
+  src: local("☺"), url("/global/path/to/fonts/TTF with backup Font/ttf-normal.ttf") format("truetype"), url("/global/path/to/fonts/TTF with backup Font/ttf-normal.woff") format("woff");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
   font-family: "Open Sans";
   src: local("☺"), url("/path/to/fonts/Open Sans/open-sans-light.woff2") format("woff2"), url("/path/to/fonts/Open Sans/open-sans-light.woff") format("woff");
   font-weight: 300;

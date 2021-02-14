@@ -31,7 +31,12 @@ $fonts-path: '../fonts' !default;
 	$src: (local('☺'));
 	$family-folder: str-replace($font-family, ' ', '-');
 	@each $type in $font-types {
-		$src: append($src, url('#{$fonts-path}/#{$font-family}/#{nth($font-file, 1)}.#{$type}') format('#{$type}'), 'comma');
+		$format-type: $type;
+		@if $type == 'ttf' {
+			//Allows ttf fonts to be correctly included in CSS
+			$format-type: 'truetype';
+		}
+		$src: append($src, url('#{$fonts-path}/#{$font-family}/#{nth($font-file, 1)}.#{$type}') format('#{$format-type}'), 'comma');
 	}
 	@return $src;
 }
