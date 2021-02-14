@@ -20,7 +20,9 @@
   'Font Two' : (
     400 : 'font-two'
   )
-));
+),
+$types: 'ttf'
+);
 
 @include font-face(
   $fonts: (

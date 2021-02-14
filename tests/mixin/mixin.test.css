@@ -31,13 +31,13 @@
 
 @font-face {
   font-family: "Font One";
-  src: local("☺"), url("../fonts/Font One/font-one.woff") format("woff");
+  src: local("☺"), url("../fonts/Font One/font-one.ttf") format("truetype");
   font-weight: 400;
   font-style: normal; }
 
 @font-face {
   font-family: "Font Two";
-  src: local("☺"), url("../fonts/Font Two/font-two.woff") format("woff");
+  src: local("☺"), url("../fonts/Font Two/font-two.ttf") format("truetype");
   font-weight: 400;
   font-style: normal; }
 
