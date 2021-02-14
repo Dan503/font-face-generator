@@ -456,3 +456,17 @@ That will produce this css:
   unicode-range: U+0025-00FF;
 }
 ``````
+
+## Contributing
+
+Please make PRs against `develop` branch rather than `master` branch.
+
+### Writing tests
+
+Please make tests for your changes. Avoid modifying existing tests, it is better to make new ones (though this isn't always practical for `generator.test.scss`).
+
+Write tests for your changes in `tests/mixin/mixin.test.scss` and `tests/generator/generator.test.scss`.
+
+`npm i` to install packages, `npx gulp` to generate the CSS from the test scss files.
+
+Use git to compare the old CSS output with the new CSS output. If git identifies any changes, check that those changes are expected.
