@@ -36,6 +36,10 @@ $fonts-path: '../fonts' !default;
 			//Allows ttf fonts to be correctly included in CSS
 			$format-type: 'truetype';
 		}
+		@if $type == 'otf' {
+			//Allows otf fonts to be correctly included in CSS
+			$format-type: 'opentype';
+		}
 		$src: append($src, url('#{$fonts-path}/#{$font-family}/#{nth($font-file, 1)}.#{$type}') format('#{$format-type}'), 'comma');
 	}
 	@return $src;
