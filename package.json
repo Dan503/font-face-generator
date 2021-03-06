@@ -27,10 +27,10 @@
   },
   "homepage": "https://github.com/Dan503/font-face-generator#readme",
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/register": "^7.6.0",
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/register": "^7.13.8",
     "gulp": "^4.0.2",
-    "gulp-sass": "^4.0.2"
+    "gulp-sass": "^4.1.0"
   }
 }
