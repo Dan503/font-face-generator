@@ -67,12 +67,22 @@ $fonts-path: '/global/path/to/fonts';
 
 @include font-face(
   $fonts: (
+    'OpenType Font' : (
+      400 : 'otf-normal'
+    )
+  ),
+  // overide the default file types setting
+  $types: 'otf'
+);
+
+@include font-face(
+  $fonts: (
     'TTF with backup Font' : (
       400 : 'ttf-normal'
     )
   ),
   // overide the default file types setting
-  $types: 'ttf' 'woff'
+  $types: 'ttf' 'otf' 'woff'
 );
 
 @include font-face(
