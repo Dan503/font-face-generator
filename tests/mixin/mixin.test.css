@@ -66,8 +66,14 @@
   font-style: normal; }
 
 @font-face {
+  font-family: "OpenType Font";
+  src: local("☺"), url("/global/path/to/fonts/OpenType Font/otf-normal.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal; }
+
+@font-face {
   font-family: "TTF with backup Font";
-  src: local("☺"), url("/global/path/to/fonts/TTF with backup Font/ttf-normal.ttf") format("truetype"), url("/global/path/to/fonts/TTF with backup Font/ttf-normal.woff") format("woff");
+  src: local("☺"), url("/global/path/to/fonts/TTF with backup Font/ttf-normal.ttf") format("truetype"), url("/global/path/to/fonts/TTF with backup Font/ttf-normal.otf") format("opentype"), url("/global/path/to/fonts/TTF with backup Font/ttf-normal.woff") format("woff");
   font-weight: 400;
   font-style: normal; }
 

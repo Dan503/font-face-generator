@@ -1,21 +1,19 @@
-
 $fonts: (
-  'Open Sans' : (
-    300 : 'open-sans-light',
-    400 : (
-      normal : 'open-sans-normal',
-      italic : 'open-sans-normal-italic'
-    ),
-    600 : 'open-sans-semibold',
-    700 : 'open-sans-bold'
-  ),
-
-  'Font Two' : (
-    400 : 'font-two'
-  )
+	'Open Sans': (
+		300: 'open-sans-light',
+		400: (
+			normal: 'open-sans-normal',
+			italic: 'open-sans-normal-italic',
+		),
+		600: 'open-sans-semibold',
+		700: 'open-sans-bold',
+	),
+	'Font Two': (
+		400: 'font-two',
+	),
 );
 
-$font-file-types: 'woff2' 'woff' 'ttf';
+$font-file-types: 'woff2' 'woff' 'ttf' 'otf';
 
 $fonts-path: '/path/to/fonts';
 
