@@ -56,7 +56,7 @@ $fonts-path: '../fonts' !default;
 		}
 		$src: append(
 			$src,
-			url('#{$fonts-path}/#{$font-family}/#{nth($font-file, 1)}.#{$type}')
+			url('#{$fonts-path}/#{$family-folder}/#{nth($font-file, 1)}.#{$type}')
 				format('#{$format-type}'),
 			'comma'
 		);
